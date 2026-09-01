@@ -1,2 +1,3 @@
 # Estoqueprodutos
-Estoque de protutos e vendas
+Estoque de protutos e vendas utilizado Linguagem C
+

@@ -5,6 +5,7 @@ char nomeproduto [10][50];
 float quantidade [10];
 float valor [10];
 int totalprodutos = 0;
+float calculototal = 0;
 
 int cadastrarproduto() {
 
@@ -20,7 +21,7 @@ int cadastrarproduto() {
         scanf("%f", &quantidade[totalprodutos]);
         printf("Digite o valor do produto: ");
         scanf("%f", &valor[totalprodutos]);
-        printf("-------------------------\n");
+        printf("\n-------------------------\n");
         printf("Produto cadastrado com sucesso: %s\n", nomeproduto[totalprodutos]);
         printf("Quantidade: %.2f Kg \n", quantidade[totalprodutos]);
         printf("Valor: %.2f R$ \n ", valor[totalprodutos]);
@@ -64,43 +65,42 @@ int venda() {
         for (int i = 0; i < totalprodutos; i++) {
             printf("%d. %s\n", i + 1, nomeproduto[i]);
         }
-        scanf("-> %d", &produtoindex);
-    }
-    scanf("-> %d", &produtoindex);
 
-    if (totalprodutos < 1 || totalprodutos > 10) { // Verifica se o índice do produto é válido
-        printf("Produto invalido.\n");
-        return -1;
-    } else {
-        printf("Digite a quantidade a ser vendida: "); // Solicita a quantidade a ser vendida
-        scanf("%f", &quantidadevendida);
+        printf("Digite o numero do produto: ");
+        scanf("%d", &produtoindex);
+        produtoindex--; // Ajusta o índice para corresponder ao array (0 a 9)
 
-        if(quantidadevendida < produtoindex) { // Verifica se a quantidade vendida é maior do que a quantidade disponível
-            printf("Quantidade inserida maior do que possue!");
+        if (produtoindex < 0 || produtoindex >= totalprodutos) { // Verifica se o índice do produto é válido
+            printf("Produto invalido.\n");
             return -1;
         } else {
-            quantidade[produtoindex] -= quantidadevendida; // Atualiza a quantidade do produto após a venda
-            printf("Venda realizada com sucesso!\n");
-            printf("Produto: %s\n", nomeproduto[produtoindex]);
-            printf("Quantidade vendida: %.2f Kg\n", quantidadevendida);
-            printf("Quantidade restante: %.2f Kg\n", quantidade[produtoindex]);
+            printf("Digite a quantidade a ser vendida(Kg): "); // Solicita a quantidade a ser vendida
+            scanf("%f", &quantidadevendida);
+
+            if(quantidadevendida > quantidade[produtoindex]) { // Verifica se a quantidade vendida é maior do que a quantidade disponível
+                printf("Quantidade inserida maior do que possue!");
+                return -1;
+            } else {
+                quantidade[produtoindex] -= quantidadevendida; // Atualiza a quantidade do produto após a venda
+                printf("Venda realizada com sucesso!\n");
+                printf("Produto: %s\n", nomeproduto[produtoindex]);
+                printf("Quantidade vendida: %.2f Kg\n", quantidadevendida);
+                printf("Quantidade restante: %.2f Kg\n", quantidade[produtoindex]);
+            }
+        } 
+        if (quantidade[produtoindex] == 0) { // Verifica se a quantidade do produto é zero após a venda
+            printf("Produto esgotado! Removendo produto da lista.\n");
+            totalprodutos--;
         }
         return (quantidade[produtoindex] == 0) ? 1 : 0; // Retorna 1 se a quantidade do produto for zero, caso contrário retorna 0
     }
     
-
     printf("Venda realizada com sucesso!\n");
     return 0;
 }
 
-void ven() {
-    int resultado = 0;
-    if (resultado == 1) { // Se a quantidade do produto for zero, remove o produto da lista
-        printf("Produto esgotado! Removendo produto da lista.\n");
-        totalprodutos--;
-    } else if (resultado == -1) { // Se houver algum erro na venda, exibe uma mensagem de erro
-        printf("Erro na venda. Tente novamente.\n");
-    }
+void calculo() {
+    //Adicionar o calculo do valor total de vendas
 }
 
 int main() {
@@ -128,6 +128,9 @@ int main() {
                 venda();
                 break;
             case 4:
+                calculo();
+                exit(0);
+            case 5:
                 printf("Saindo do programa.\n");
                 exit(0);
             default:

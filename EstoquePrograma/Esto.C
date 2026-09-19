@@ -77,7 +77,7 @@ int venda() {
         return -1;
     } else { // Lista os produtos cadastrados
         for (int i = 0; i < totalprodutos; i++) {
-            printf("%d. %s\n", i + 1, nomeproduto[i]);
+            printf("%d. %s. %.2f KG\n", i + 1, nomeproduto[i], quantidade[i]);
         }
 
         printf("Digite o numero do produto: ");
@@ -104,31 +104,24 @@ int venda() {
                     printf("Quantidade restante: %.2f Kg\n", quantidade[produtoindex]);
                 } else {
                     printf("Produto esgotado!\n");
-                    for (int i = produtoindex; i < totalprodutos - 1; i++) { // Remove o produto da lista se a quantidade for zero
-                        if (quantidade[i] <= 0){
-                        quantidade[i] = quantidade[i + 1]; //SISTEMA PARA REALOCAR OS PRODUTOS NA LISTA CASO UM PRODUTO SEJA REMOVIDO
+
+                    for(int i = produtoindex; i < totalprodutos - 1; i++){ // Remove o produto da lista, deslocando os elementos subsequentes para a esquerda
+                        quantidade[i] = quantidade[i + 1];
                         valor[i] = valor[i + 1];
-                        strcpy(nomeproduto[i], nomeproduto[i + 1]);
-                        }
+                        strcpy(nomeproduto[i], nomeproduto[i + 1]); // Copia o nome do produto subsequente para a posição atual
                     }
+                    totalprodutos--; // Decrementa o total de produtos após a venda
+                
                 }
             }
         } 
         if (quantidade[produtoindex] == 0) { // Verifica se a quantidade do produto é zero após a venda
-            printf("Produto esgotado! Removendo produto da lista.\n");
+            printf("Removendo produto da lista.\n");
             totalprodutos--;
         }
         return (quantidade[produtoindex] == 0) ? 1 : 0; // Retorna 1 se a quantidade do produto for zero, caso contrário retorna 0
     }
 
-    for (int i = 0; i < totalprodutos; i++) {
-        quantidadevendida += quantidadevendida;
-        for (int j = i; j < totalprodutos - 1; j++) {
-            
-
-        }
-    }
-    
     printf("Venda realizada com sucesso!\n");
     return 0;
 }

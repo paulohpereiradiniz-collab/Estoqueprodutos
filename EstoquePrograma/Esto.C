@@ -54,17 +54,6 @@ int listarprodutos() {
     return 0;
 }
 
-int remover_elemento(int vetor[], int tamanho, int pos) {
-    if (pos < 0 || pos >= tamanho) {
-        return tamanho;  // Posição inválida
-    }
-    
-    for (int i = pos; i < tamanho - 1; i++) {
-        vetor[i] = vetor[i + 1];
-    }
-    
-    return tamanho - 1;  // Novo tamanho
-}
 
 int venda() {
     int produtoindex = totalprodutos - 1;

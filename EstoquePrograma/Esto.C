@@ -85,6 +85,9 @@ int venda() {
                 return -1;
             } else {
                 quantidade[produtoindex] -= quantidadevendida; // Atualiza a quantidade do produto após a venda
+
+                calculototal += valor[produtoindex] * quantidadevendida;
+
                 printf("Venda realizada com sucesso!\n");
                 printf("Produto: %s\n", nomeproduto[produtoindex]);
                 printf("Quantidade vendida: %.2f Kg\n", quantidadevendida);
@@ -99,25 +102,22 @@ int venda() {
                         valor[i] = valor[i + 1];
                         strcpy(nomeproduto[i], nomeproduto[i + 1]); // Copia o nome do produto subsequente para a posição atual
                     }
+                    printf("Removendo produto da lista.\n");
                     totalprodutos--; // Decrementa o total de produtos após a venda
                 
                 }
             }
         } 
-        if (quantidade[produtoindex] == 0) { // Verifica se a quantidade do produto é zero após a venda
-            printf("Removendo produto da lista.\n");
-            totalprodutos--;
-        }
+        
         return (quantidade[produtoindex] == 0) ? 1 : 0; // Retorna 1 se a quantidade do produto for zero, caso contrário retorna 0
     }
-
     printf("Venda realizada com sucesso!\n");
     return 0;
 }
 
-void calculo() {
-    //Adicionar o calculo do valor total de vendas
-}
+// int calculo() {
+//
+// }
 
 int main() {
     
@@ -145,8 +145,8 @@ int main() {
                 venda();
                 break;
             case 4:
-                calculo();
-                exit(0);
+                printf("%.2f", calculototal);
+                break;
             case 5:
                 printf("Saindo do programa.\n");
                 exit(0);
@@ -158,3 +158,4 @@ int main() {
 
     return 0;
 }
+
